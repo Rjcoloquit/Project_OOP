@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import Trainer
-from .models import PokemonCard
+from . import models
 
-@admin.register(Trainer)
+
+@admin.register(models.Trainer)
 class TrainerAdmin(admin.ModelAdmin):
     list_display = ("name", "birthdate", "location", "email")
     search_fields = ("name", "location",)
 
-@admin.register(PokemonCard)
+@admin.register(models.PokemonCard)
 class PokemonCardAdmin(admin.ModelAdmin):
     list_display = ("name", "rarity")
     search_fields = ("name",)
