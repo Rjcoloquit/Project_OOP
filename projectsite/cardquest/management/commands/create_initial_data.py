@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from cardquest.models import PokemonCard, Trainer
+from cardquest.models import PokemonCard, Trainer, Collection
 
 class Command(BaseCommand):
     help = 'Creates initial data for the application'
@@ -7,6 +7,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.create_pokemon_cards()
         self.create_trainers()
+        self.create_collection()
 
     def create_pokemon_cards(self):
         card1 = PokemonCard(name="Pikachu", rarity="Rare",hp=60, card_type="Electric", attack="Thunder Shock", description="A mouse-like pokemon that can generate electricity.", weakness="Ground", card_number=25, release_date="1996-02-27", evolution_stage="Basic", abilities="Static")
@@ -29,7 +30,7 @@ class Command(BaseCommand):
         card18 = PokemonCard(name="Darkrai",rarity= "Rare",hp= 70,card_type= "Dark",attack= "Dark Pulse", description= "A black, shadow-like Pokemon. It has a small head with a white fog-like ghostly plume billowing from its head covering one of its bright blue eyes", weakness= "Fairy" ,card_number= 491 ,release_date= "2004-11-18" ,evolution_stage= "Final Form" ,abilities= "Intimidate")
         card19 = PokemonCard(name= "Totodile",rarity= "Common",hp= 50,card_type= "Water",attack= "Water Gun", description= "Is a bipedal, crocodilian Pokemon with well-developed jaws.", weakness= "Grass"  , card_number= 158,release_date="2001-03-19", evolution_stage= "Basic" ,abilities= "Torrent")
         card20 = PokemonCard(name= "Deoxys",rarity= "Rare",hp= 50,card_type= "Pyschic",attack= "Cosmic Power", description= "An alien-like, bipedal Pokemon that has four forms. Each focused on a different stat.", weakness= "Dark" ,card_number= 186 ,release_date="2004-11-18", evolution_stage= "Basic" ,abilities= "Pressure")
-        
+
         pokemon_cards = [card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18, card19, card20]
         for card in pokemon_cards:
             card.save()
@@ -37,7 +38,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully created Pokemon cards.'))
 
     def create_trainers(self):
-        trainer1 = Trainer(name="Ash", birthdate= "1987-05-22",location= "Pallet Town",email= "ash@pokemon.com") 
+        trainer1 = Trainer(name="Ash", birthdate= "1987-05-22",location= "Pallet Town",email= "ash@pokemon.com")
         trainer2 = Trainer(name= "Gary",birthdate= "1984-08-06",location= "Pallet Town",email= "gary@pokemon.com")
         trainer3 = Trainer(name="Giovanni",birthdate= "1983-06-01",location= "Viridian City",email= "giovanni@teamrocket.com")
         trainer4 = Trainer(name="Silver",birthdate= "2007-12-24",location= "Johto City",email= "silver@pokemon.com")
@@ -53,3 +54,13 @@ class Command(BaseCommand):
             trainer.save()
 
         self.stdout.write(self.style.SUCCESS('Successfully created Trainers.'))
+
+    def create_collection(self):
+        collection1 = Collection(card=PokemonCard.objects.get(name="Pikachu"), trainer=Trainer.objects.get(name="Ash"), collection_date="1997-04-01")
+        collection2 = Collection(card=PokemonCard.objects.get(name="Eevee"), trainer=Trainer.objects.get(name="Gary"), collection_date="1999-06-27")
+
+        collections = [collection1, collection2]
+        for collection in collections:
+            collection.save()
+
+        self.stdout.write(self.style.SUCCESS('Successfully created Collection.'))
