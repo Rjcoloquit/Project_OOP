@@ -3,12 +3,9 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from cardquest.models import Trainer, PokemonCard, Collection
 from cardquest.forms import TrainerForm
+from django.urls import reverse_lazy
 import json
 
-from django.urls import reverse_lazy
-
-
-# Create your views here.
 class HomePageView(ListView):
     model = PokemonCard
     context_object_name = 'home'
@@ -23,6 +20,23 @@ class TrainerList(ListView):
     context_object_name = 'trainer'
     template_name = 'trainer.html'
     paginate_by = 9
+
+class TrainerCreateView(CreateView):
+    model = Trainer
+    form_class = TrainerForm
+    template_name = 'trainer-add.html'
+    success_url = reverse_lazy('trainer-list')
+
+class TrainerUpdateView(UpdateView):
+    model = Trainer
+    form_class = TrainerForm
+    template_name = 'trainer-edit.html'
+    success_url = reverse_lazy('trainer-list')
+
+class TrainerDeleteView(DeleteView):
+    model = Trainer
+    template_name = 'trainer-del.html'
+    success_url = reverse_lazy('trainer-list')
 
 class PokemonCardListView(ListView):
     model = PokemonCard
@@ -43,21 +57,4 @@ class CollectionList(ListView):
     model = Collection
     context_object_name = 'collection'
     template_name = 'collection.html'
-    paginate_by = 10
-
-class TrainerCreateView(CreateView):
-    model = Trainer
-    form_class = TrainerForm
-    template_name = 'trainer_add.html'
-    success_url = reverse_lazy('trainer-list')
-
-class TrainerUpdateView(UpdateView):
-    model = Trainer
-    form_class = TrainerForm
-    template_name = 'trainer_edit.html'
-    success_url = reverse_lazy('trainer-list')
-
-class TrainerDeleteView(DeleteView):
-    model = Trainer
-    template_name = 'trainer_del.html'
-    success_url = reverse_lazy('trainer-list')
+    paginate_by = 15
