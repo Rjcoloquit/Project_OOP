@@ -1,5 +1,6 @@
 from django.db import models
 
+# Create your models here.
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -55,8 +56,8 @@ class PokemonCard(BaseModel):
     abilities = models.CharField(max_length=250, null=True, blank=True)
 
     def __str__(self):
-        return self.name
-
+        return self.name 
+        
 class Collection(BaseModel):
     card = models.ForeignKey(PokemonCard, null=True, blank=True, on_delete=models.CASCADE)
     trainer = models.ForeignKey(Trainer, null=True, blank=True, on_delete=models.CASCADE)
