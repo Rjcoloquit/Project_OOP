@@ -7,7 +7,7 @@
 
 body {
   /* background-color: #d3d3d3; */
-  background-image: url('../images/bg.png');
+  background-image: url('../images/pm.png');
   background-size: cover; /* This property ensures the image covers the entire body */
   background-position: center;
   background-attachment: fixed; /* Set the background position as fixed */
@@ -56,8 +56,8 @@ main {
 
 /*FOOTER*/
 footer {
-  position: fixed;
-  height: 20vh;
+  /* position: fixed;
+  height: 20vh; */
   width: 100%;
   background-color: red;
   color: white;
@@ -65,16 +65,17 @@ footer {
   text-align: center;
 }
 
+main {
+  min-height: 53.5vh
+}
+
 /*-----------------------------HOME_PAGE---------------------------------------*/
 /*CONTENT*/
-.home-content {
-  min-height: 100vh;
-}
 
 /*-----------------------------TRAINER_PAGE------------------------------------*/
 /*TRAINERS*/
 .trainers-container {
-  min-height: auto;
+  /* min-height: auto; */
   border-collapse: collapse;
   margin: 1%;
   display: flex;
@@ -114,7 +115,7 @@ footer {
 
 /*-----------------------------COLLECTION_PAGE---------------------------------*/
 .collection-container {
-  min-height: auto;
+  /* min-height: auto; */
   border-collapse: collapse;
   margin: 1%;
   display: flex;
@@ -187,13 +188,13 @@ footer {
 /*-----------------------------POKEMON_CARD_PAGE-------------------------------*/
 /*CARDS*/
 .cards-container {
-  min-height: auto;
+  /* min-height: auto; */
   /* border-collapse: collapse; */
   margin: 1%;
   /* display: flex; */
   text-align: center;
   font-size: 12px;
-  padding-bottom: 160px;
+  /* padding-bottom: 160px; */
 }
 
 .card-box {

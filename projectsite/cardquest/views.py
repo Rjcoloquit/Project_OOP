@@ -3,9 +3,12 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from cardquest.models import Trainer, PokemonCard, Collection
 from cardquest.forms import TrainerForm, PokemonCardForm, CollectionForm
-from django.urls import reverse_lazy
 import json
 
+from django.urls import reverse_lazy
+
+
+# Create your views here.
 class HomePageView(ListView):
     model = PokemonCard
     context_object_name = 'home'
@@ -14,34 +17,11 @@ class HomePageView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-    
-class TrainerList(ListView):
-    model = Trainer
-    context_object_name = 'trainer'
-    template_name = 'trainer.html'
-    paginate_by = 9
-
-class TrainerCreateView(CreateView):
-    model = Trainer
-    form_class = TrainerForm
-    template_name = 'trainer-add.html'
-    success_url = reverse_lazy('trainer-list')
-
-class TrainerUpdateView(UpdateView):
-    model = Trainer
-    form_class = TrainerForm
-    template_name = 'trainer-edit.html'
-    success_url = reverse_lazy('trainer-list')
-
-class TrainerDeleteView(DeleteView):
-    model = Trainer
-    template_name = 'trainer-del.html'
-    success_url = reverse_lazy('trainer-list')
-
 class PokemonCardListView(ListView):
     model = PokemonCard
     context_object_name = 'pokemoncard'
     template_name = "pokemon-card.html"
+    paginate_by = 3
     json_file_path = 'data/pokemon_data.json'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,7 +32,6 @@ class PokemonCardListView(ListView):
         with open(self.json_file_path, 'r') as file:
             data = json.load(file)
             return data.get('pokemons', [])
-        
 class PokemonCardCreateView(CreateView):
     model = PokemonCard
     form_class = PokemonCardForm
@@ -67,6 +46,7 @@ class PokemonCardUpdateView(UpdateView):
 
 class PokemonCardDeleteView(DeleteView):
     model = PokemonCard
+    form_class = PokemonCardForm
     template_name = 'pokemon-card-del.html'
     success_url = reverse_lazy('pokemon-card')
 
@@ -90,5 +70,32 @@ class CollectionUpdateView(UpdateView):
 
 class CollectionDeleteView(DeleteView):
     model = Collection
+    form_class = CollectionForm
     template_name = 'collection-del.html'
     success_url = reverse_lazy('collection')
+
+
+class TrainerList(ListView):
+    model = Trainer
+    context_object_name = 'trainer'
+    template_name = 'trainer.html'
+    paginate_by = 9
+
+class TrainerCreateView(CreateView):
+    model = Trainer
+    form_class = TrainerForm
+    template_name = 'trainer-add.html'
+    success_url = reverse_lazy('trainer-list')
+
+class TrainerUpdateView(UpdateView):
+    model = Trainer
+    form_class = TrainerForm
+    template_name = 'trainer-edit.html'
+    success_url = reverse_lazy('trainer-list')
+
+class TrainerDeleteView(DeleteView):
+    model = Trainer
+    template_name = 'trainer-del.html'
+    success_url = reverse_lazy('trainer-list')
+
+
