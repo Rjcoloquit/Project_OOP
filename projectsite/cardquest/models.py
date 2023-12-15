@@ -49,7 +49,7 @@ class PokemonCard(BaseModel):
     attack = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=250, null=True, blank=True)
     weakness = models.CharField(max_length=100, null=True, blank=True)
-    card_number = models.CharField(max_length=4, null=True, blank=True)
+    card_number = models.IntegerField(null=True, blank=True)
     release_date = models.DateField(null=True, blank=True)
     evolution_stage = models.CharField(max_length=100, null=True, blank=True)
     abilities = models.CharField(max_length=250, null=True, blank=True)
@@ -61,3 +61,6 @@ class Collection(BaseModel):
     card = models.ForeignKey(PokemonCard, null=True, blank=True, on_delete=models.CASCADE)
     trainer = models.ForeignKey(Trainer, null=True, blank=True, on_delete=models.CASCADE)
     collection_date = models.DateField()
+
+    def __str__(self):
+        return f"Card = {self.card} | Trainer = {self.trainer}"
